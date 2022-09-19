@@ -92,9 +92,6 @@ describe('AeropuertoService', () => {
       aerolineas: [],
     }
 
-    const newAeropuerto: AeropuertoEntity = await service.create(aeropuerto);
-    expect(newAeropuerto).not.toBeNull();
-
     await expect(() => service.create(aeropuerto)).rejects.toHaveProperty("message", "The aeropuerto's code must be of length 3")
   });
 
@@ -125,7 +122,7 @@ describe('AeropuertoService', () => {
     aeropuerto = {
       ...aeropuerto, codigo: "890789"
     }
-    await expect(() => service.update("0", aeropuerto)).rejects.toHaveProperty("message", "The aeropuerto's code must be of length 3")
+    await expect(() => service.update(aeropuerto.id, aeropuerto)).rejects.toHaveProperty("message", "The aeropuerto's code must be of length 3")
   });
 
   it('delete should remove an aeropuerto', async () => {
