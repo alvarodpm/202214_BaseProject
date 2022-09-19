@@ -92,9 +92,6 @@ describe('AerolineaService', () => {
       aeropuertos: [],
     }
 
-    const newAerolinea: AerolineaEntity = await service.create(aerolinea);
-    expect(newAerolinea).not.toBeNull();
-
     await expect(() => service.create(aerolinea)).rejects.toHaveProperty("message", "The aerolinea's date of foundation can't be in the future")
   });
 
@@ -125,7 +122,7 @@ describe('AerolineaService', () => {
     aerolinea = {
       ...aerolinea, fechaFundacion: faker.date.future()
     }
-    await expect(() => service.update("0", aerolinea)).rejects.toHaveProperty("message", "The aerolinea's date of foundation can't be in the future")
+    await expect(() => service.update(aerolinea.id, aerolinea)).rejects.toHaveProperty("message", "The aerolinea's date of foundation can't be in the future")
   });
 
   it('delete should remove an aerolinea', async () => {
